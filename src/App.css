@@ -3,12 +3,9 @@
 .App {
   font-family: 'Montserrat', sans-serif;
   background-color: #282c34;
+  text-align: center;
   color: white;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .input-group .btn {
