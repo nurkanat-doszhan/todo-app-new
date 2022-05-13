@@ -8,30 +8,30 @@ const App = () => {
     };
     let [newTask, setNewTask] = useState('')
     let [task, setTask] = useState([
-        // { text: "Task 1", complete: true },
-        // { text: "Task 2", complete: false },
-        // { text: "Task 3", complete: false }
+        {text: 'Test 1', complete: true},
+        {text: 'Test 2', complete: true},
+        {text: 'Test 3', complete: false}
     ]);
+    // let addToLocalStorage = () => {
+    //     return arr
+    // }
 
     useEffect(() => {
-        let data = JSON.stringify(task)
-        localStorage.setItem('todos', data)
-        // setTask(data)
-        // let data = localStorage.getItem('todos')
-        // setTask(data)
+        let data = localStorage.getItem('todos')
+        // let arr = JSON.parse(data)
         let arr = JSON.parse(data)
-        console.log(arr)
         // setTask(arr)
+        console.log(arr)
+
         return () => {
-            return 0;
+            return 0
         }
     }, [task])
 
-    let itemHandler = (i) => {
+    const itemHandler = (i) => {
         i.complete = !i.complete;
         setTask([...task]);
     };
-
     const Item = (props) => {
         return (
             <li
@@ -43,17 +43,20 @@ const App = () => {
             </li>
         );
     };
-
     const inputChange = (e) => {
         setNewTask(e.target.value)
     }
-
     const addClick = () => {
         if(newTask === '' || newTask === ' ') {
             return 0
         } else {
             setTask([...task, {text: newTask, complete: false}])
             setNewTask('')
+            let data = JSON.stringify(task)
+            let arr = JSON.parse(data)
+            console.log(arr.length)
+
+            localStorage.setItem('todos', data)
         }
     }
 
@@ -69,6 +72,11 @@ const App = () => {
                         placeholder="Enter your task"
                         onChange={inputChange}
                         value={newTask}
+                        onKeyDown={(e) => {
+                            if (e.code === "Enter") {
+                                addClick()
+                            }
+                        }}
                     />
                     <button
                         className="btn btn-outline-light"
@@ -79,6 +87,7 @@ const App = () => {
                         Button
                     </button>
                 </div>
+
                 <ul className="list-group mt-4">
                     {task.map((i, v) => {
                         return (
